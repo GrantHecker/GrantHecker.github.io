@@ -7,3 +7,66 @@ I enjoyed this lab because we got to deal with while loops and if statements to 
 Wanted to always know how to make propability a thing digitally.
 
 https://github.com/cpsc-pilot-fall-2022/cpsc-120-lab-06-daniel-grant.git
+
+#include <cmath>
+#include <iostream>
+#include <string>
+
+const int kSecretNumber{42};
+
+bool is_game_over{false};
+int guess = 0;
+int last_guess = 0;
+
+void RangeCheck() {
+  while (guess < 1 || guess > 100) {
+    std::cout << "What's your guess?";
+    std::cin >> guess;
+    last_guess = guess;
+  }
+}
+
+void UserInput() {
+  std::cout << "What's your guess?";
+  std::cin >> guess;
+}
+
+int main(int argc, char const *argv[]) {
+  std::string input;
+  std::string answer;
+
+  while (!is_game_over) {
+    std::cout << "Hi - I'm a computer and I've thought of a number between "
+                 "1 and 100.\n";
+    std::cout << "Let's play a guessing game...\n";
+
+    UserInput();
+    RangeCheck();
+
+    while (guess != kSecretNumber) {
+      std::cout << "Nope - that's not it."
+                << "\n";
+      if (abs(kSecretNumber - guess) < abs(kSecretNumber - last_guess)) {
+        std::cout << "You're getting warmer!"
+                  << "\n";
+      } else {
+        std::cout << "You're getting colder!"
+                  << "\n";
+      }
+      last_guess = guess;
+      UserInput();
+      RangeCheck();
+    }
+
+    if (guess == kSecretNumber) {
+      std::cout << "Hooray! You guessed the secret number!!";
+      std::cout << "Do you want to play again? (y or n)";
+      std::cin >> input;
+      if (input == "y") {
+        continue;
+      }
+      is_game_over = true;
+    }
+  }
+  return 0;
+}
