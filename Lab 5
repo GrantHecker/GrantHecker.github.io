@@ -7,3 +7,29 @@ I was alwaays curious about making such games through using strings and other me
 Being able to combine things like IF statements and std cout/string staements.
 
 https://github.com/cpsc-pilot-fall-2022/cpsc-120-lab-05-daniel-and-grant.git
+
+#include <iostream>
+#include <string>
+#include <vector>
+
+int main(int argc, char* argv[]) {
+  std::vector<std::string> arguments(argv, argv + argc);
+
+  if (arguments.size() != 4) {
+    std::cout << "error: you must supply three arguments"
+              << "\n";
+    return 1;
+  }
+
+  std::string protein{arguments.at(1)};
+  std::string bread{arguments.at(2)};
+  std::string condiment{arguments.at(3)};
+
+  std::cout << "Your order:"
+            << "\n";
+  std::cout << "A " << protein << " sandwich on " << bread << " with "
+            << condiment << "."
+            << "\n";
+
+  return 0;
+}
